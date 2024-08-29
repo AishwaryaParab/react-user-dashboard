@@ -1,50 +1,66 @@
-# React + TypeScript + Vite
+## Thought Process
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. Set up a Vite - React + TypeScript project and began with Google Authentication. Used https://www.npmjs.com/package/@react-oauth/google package to implement Google SSO in the project and store the user in local storage.
 
-Currently, two official plugins are available:
+2. Utilised context for the user across the application. Similarly, created context for the theme to maintain light and dark mode themes across the application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+3. Once Google Authentication was implemented, I brainstormed on the design and features of the application. These were the final features I’ve implemented:
+  - Total Monthly Consumption
+  - Total Monthly Savings
+  - Annual aggregated Carbon Footprint
+  - Breakdown of Energy Sources
+  - Real time graph between Energy Consumption & Savings for a given timestamp. 
 
-## Expanding the ESLint configuration
+4. Began structuring the project and implementing each feature step by step. Used Recharts (https://recharts.org/en-US/examples) to display animated charts. At first, I implemented the line charts for Total Consumptions and Total Savings. Then, moved on to Pie Chart and Bar Graph.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+5. Implemented the real-time graph and maintained a state that would update the data points in the graph by making an API call every 30 seconds. Here, I’ve hard coded the initial data for the graph. Ideally, an API call can be made to get the initial data according to the current timestamp.
 
-- Configure the top-level `parserOptions` property like this:
+6. I've used MSW (https://mswjs.io/docs/getting-started) to mock the data API given to me.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+7. There is a transition when the graph updates and for every new update, the new data points show a pulsating effect. I used framer-motion to integrate animations throughout the application.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+8. Further integrated react-joyride for a seamless user onboarding experience. I defined the major features of the application and integrated the tour. Worked on displaying a message before and on successfully completing the tour.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+9. Finally, worked on the Welcome animation which needs to be displayed when the user first sees the dashboard.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Instructions to run the application
+
+### Prerequisites
+
+Ensure you have the following installed on your local machine:
+
+- **Node.js** (v14.x or higher)
+- **npm** (v6.x or higher) or **Yarn** (v1.x or higher)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/AishwaryaParab/react-user-dashboard
+   cd react-user-dashboard
+
+2. **Install the dependencies:**
+
+   If you're using npm:
+   ```
+   npm install
+   ```
+
+   Or if you're using yarn:
+   ```
+   yarn install
+   ```
+
+3. **Running the application:**
+   ```
+   npm run dev
+   ```
+
+   OR 
+
+   ```
+   yarn dev
+   ```
+
+   This will start the Vite development server. Open your browser and navigate to http://localhost:5173/. You should see your React application running.
